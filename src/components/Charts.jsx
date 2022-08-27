@@ -19,8 +19,8 @@ const Charts = (data, setData) => {
                 viewId: process.env.REACT_APP_VIEW_ID, //enter your view ID here
                 dateRanges: [
                   {
-                    startDate: "2021-01-01",
-                    endDate: "2022-09-10",
+                    startDate: "2021-01-30",
+                    endDate: "2022-08-20",
                   },
                 ],
                 metrics: [
@@ -30,7 +30,7 @@ const Charts = (data, setData) => {
                 ],
                 dimensions: [
                   {
-                    name: "ga:date",
+                    name: "ga:yearMonth",
                   },
                 ],
               },
@@ -77,7 +77,7 @@ const Charts = (data, setData) => {
       "insideBottomLeft",
       "insideBottomRight",
     ];
-    
+
     myChart.configParameters = {
       rotate: {
         min: -90,
@@ -218,7 +218,9 @@ const Charts = (data, setData) => {
     });
   }, [setData]);
 
-  return <div ref={chartRef} />;
+  return (
+      <div ref={chartRef}></div>
+  );
 };
 
 export default Charts;
