@@ -6,6 +6,151 @@ import PropTypes from "prop-types";
 const Charts = (props) => {
   const chartRef = useRef(null);
 
+  //Echart construction
+  useEffect(() => {
+    let myChart;
+
+    if (chartRef.current !== null) {
+      myChart = echarts.init(chartRef.current, null, {
+        width: 1000,
+        height: 600,
+      });
+    }
+
+    function resizeChart() {
+      myChart?.resize();
+    }
+    window.addEventListener("resize", resizeChart);
+
+    myChart.showLoading();
+
+    myChart.config = {
+      rotate: 90,
+      align: "left",
+      verticalAlign: "middle",
+      position: "insideBottom",
+      distance: 15,
+      onChange: function () {
+        const labelOption = {
+          rotate: myChart.config.rotate,
+          align: myChart.config.align,
+          verticalAlign: myChart.config.verticalAlign,
+          position: myChart.config.position,
+          distance: myChart.config.distance,
+        };
+        myChart.setOption({
+          series: [
+            {
+              label: labelOption,
+            },
+            {
+              label: labelOption,
+            },
+            {
+              label: labelOption,
+            },
+            {
+              label: labelOption,
+            },
+          ],
+        });
+      },
+    };
+
+    return () => {
+      myChart?.dispose();
+      window.removeEventListener("resize", resizeChart);
+    };
+  }, []);
+
+  // Echart update
+  useEffect(() => {
+    let myChart;
+    if (chartRef.current !== null) {
+      myChart = echarts.getInstanceByDom(chartRef.current);
+
+      const labelOption = {
+        show: true,
+        position: myChart.config.position,
+        distance: myChart.config.distance,
+        align: myChart.config.align,
+        verticalAlign: myChart.config.verticalAlign,
+        rotate: myChart.config.rotate,
+        formatter: "{c}  {name|{a}}",
+        fontSize: 16,
+        rich: {
+          name: {},
+        },
+      };
+
+      // Draw the chart
+      myChart.hideLoading();
+      myChart.setOption({
+        title: {
+          text: "Comparison Between Visitors of 2021 and 2022",
+        },
+        legend: {
+          data: ["2021", "2022"],
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "shadow",
+          },
+        },
+        toolbox: {
+          show: true,
+          orient: "vertical",
+          left: "right",
+          top: "center",
+          feature: {
+            mark: { show: true },
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ["line", "bar", "stack"] },
+            restore: { show: true },
+            saveAsImage: { show: true },
+          },
+        },
+        xAxis: {
+          type: "category",
+          axisTick: { show: false },
+          data: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "2021",
+            type: "bar",
+            data: props.data.slice(0, 12),
+            barGap: 0,
+            label: labelOption,
+          },
+          {
+            name: "2022",
+            type: "bar",
+            data: props.data.slice(12),
+            barGap: 0,
+            label: labelOption,
+          },
+        ],
+      });
+    }
+  }, [props.data]);
+
+  // Data fetching
   useEffect(() => {
     //Query Report for Google Api
     const queryReport = () => {
@@ -52,178 +197,8 @@ const Charts = (props) => {
     };
 
     queryReport();
-
-    //Echart construction
-    const myChart = echarts.init(chartRef.current, null, {
-      width: 1000,
-      height: 600,
-    });
-
-    myChart.showLoading();
-
-    // Echart settings
-    const posList = [
-      "left",
-      "right",
-      "top",
-      "bottom",
-      "inside",
-      "insideTop",
-      "insideLeft",
-      "insideRight",
-      "insideBottom",
-      "insideTopLeft",
-      "insideTopRight",
-      "insideBottomLeft",
-      "insideBottomRight",
-    ];
-
-    myChart.configParameters = {
-      rotate: {
-        min: -90,
-        max: 90,
-      },
-      align: {
-        options: {
-          left: "left",
-          center: "center",
-          right: "right",
-        },
-      },
-      verticalAlign: {
-        options: {
-          top: "top",
-          middle: "middle",
-          bottom: "bottom",
-        },
-      },
-      position: {
-        options: posList.reduce(function (map, pos) {
-          map[pos] = pos;
-          return map;
-        }, {}),
-      },
-      distance: {
-        min: 0,
-        max: 100,
-      },
-    };
-
-    myChart.config = {
-      rotate: 90,
-      align: "left",
-      verticalAlign: "middle",
-      position: "insideBottom",
-      distance: 15,
-      onChange: function () {
-        const labelOption = {
-          rotate: myChart.config.rotate,
-          align: myChart.config.align,
-          verticalAlign: myChart.config.verticalAlign,
-          position: myChart.config.position,
-          distance: myChart.config.distance,
-        };
-        myChart.setOption({
-          series: [
-            {
-              label: labelOption,
-            },
-            {
-              label: labelOption,
-            },
-            {
-              label: labelOption,
-            },
-            {
-              label: labelOption,
-            },
-          ],
-        });
-      },
-    };
-    const labelOption = {
-      show: true,
-      position: myChart.config.position,
-      distance: myChart.config.distance,
-      align: myChart.config.align,
-      verticalAlign: myChart.config.verticalAlign,
-      rotate: myChart.config.rotate,
-      formatter: "{c}  {name|{a}}",
-      fontSize: 16,
-      rich: {
-        name: {},
-      },
-    };
-
-    // Draw the chart
-    myChart.hideLoading();
-    myChart.setOption({
-      title: {
-        text: "Comparison Between Visitors of 2021 and 2022",
-      },
-      legend: {
-        data: ["2021", "2022"],
-      },
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          type: "shadow",
-        },
-      },
-      toolbox: {
-        show: true,
-        orient: "vertical",
-        left: "right",
-        top: "center",
-        feature: {
-          mark: { show: true },
-          dataView: { show: true, readOnly: false },
-          magicType: { show: true, type: ["line", "bar", "stack"] },
-          restore: { show: true },
-          saveAsImage: { show: true },
-        },
-      },
-      xAxis: {
-        type: "category",
-        axisTick: { show: false },
-        data: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
-      },
-      yAxis: {},
-      series: [
-        {
-          name: "2021",
-          type: "bar",
-          data: props.data.slice(0, 12),
-          barGap: 0,
-          label: labelOption,
-        },
-        {
-          name: "2022",
-          type: "bar",
-          data: props.data.slice(12),
-          barGap: 0,
-          label: labelOption,
-        },
-      ],
-    });
   }, [props.setData]);
 
-  //Echart settings end
-
-  //Print Echart
   return <div ref={chartRef}></div>;
 };
 
