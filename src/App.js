@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { renderButton, checkSignedIn } from "./lib/utils";
-import Report from "./components/report";
+import { renderButton, checkSignedIn } from "./lib/out";
 import Charts from "./components/Charts";
 
 function App() {
