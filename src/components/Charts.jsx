@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 import { useEffect } from "react";
 import * as echarts from "echarts";
+import PropTypes from 'prop-types';
 
-const Charts = (data, setData) => {
+const Charts = (props) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
-
     //Query Report for Google Api
     const queryReport = () => {
       //(1)
@@ -46,19 +46,16 @@ const Charts = (data, setData) => {
     const setResults = (response) => {
       //(2)
       const queryResult = response.result.reports[0].data.rows;
-      const result = queryResult.map((row) => {
-        const dateSting = row.dimensions[0];
-        const formattedDate = `${dateSting.substring(0, 4)}
-        -${dateSting.substring(4, 6)}-${dateSting.substring(6, 8)}`;
-        return {
-          date: formattedDate,
-          visits: row.metrics[0].values[0],
-        };
-      });
-      setData(result);
+      const values = queryResult.map(
+        (value) => value["metrics"][0]["values"][0]
+        );
+
+      props.setData(values);
     };
 
     queryReport();
+
+    console.log(props.data.slice(0, 12))
 
     //Echart construction
     const myChart = echarts.init(chartRef.current, null, {
@@ -197,6 +194,7 @@ const Charts = (data, setData) => {
           "May",
           "June",
           "July",
+          "August",
           "September",
           "October",
           "November",
@@ -208,25 +206,30 @@ const Charts = (data, setData) => {
         {
           name: "2021",
           type: "bar",
-          data: [5, 20, 6, 10, 10, 20, 5, 20, 36, 10, 10, 20],
+          data: props.data.slice(0, 12),
           barGap: 0,
           label: labelOption,
         },
         {
           name: "2022",
           type: "bar",
-          data: [5, 20, 36, 10, 10, 20, 5, 20, 36, 10, 10, 20],
+          data: props.data.slice(12),
           barGap: 0,
           label: labelOption,
         },
       ],
     });
-  }, [setData]);
+  }, [props.setData]);
 
   //Echart settings end
 
   //Print Echart
   return <div ref={chartRef}></div>;
 };
+
+Charts.propTypes = {
+  data: PropTypes.array,
+  setData: PropTypes.func
+}
 
 export default Charts;
