@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useEffect } from "react";
 import * as echarts from "echarts";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Charts = (props) => {
   const chartRef = useRef(null);
@@ -18,6 +18,7 @@ const Charts = (props) => {
           body: {
             reportRequests: [
               {
+                // eslint-disable-next-line no-undef
                 viewId: process.env.REACT_APP_VIEW_ID, //enter your view ID here
                 dateRanges: [
                   {
@@ -39,29 +40,26 @@ const Charts = (props) => {
             ],
           },
         })
-        .then(setResults, console.error.bind(console));
-    };
+        .then((response) => {
+          //(2)
+          const queryResult = response.result.reports[0].data.rows;
+          const values = queryResult.map(
+            (value) => value["metrics"][0]["values"][0]
+          );
 
-    //Taking response from Google Api
-    const setResults = (response) => {
-      //(2)
-      const queryResult = response.result.reports[0].data.rows;
-      const values = queryResult.map(
-        (value) => value["metrics"][0]["values"][0]
-        );
-
-      props.setData(values);
+          props.setData(values);
+        }, console.error.bind(console));
     };
 
     queryReport();
-
-    console.log(props.data.slice(0, 12))
 
     //Echart construction
     const myChart = echarts.init(chartRef.current, null, {
       width: 1000,
       height: 600,
     });
+
+    myChart.showLoading();
 
     // Echart settings
     const posList = [
@@ -156,7 +154,9 @@ const Charts = (props) => {
         name: {},
       },
     };
+
     // Draw the chart
+    myChart.hideLoading();
     myChart.setOption({
       title: {
         text: "Comparison Between Visitors of 2021 and 2022",
@@ -229,7 +229,7 @@ const Charts = (props) => {
 
 Charts.propTypes = {
   data: PropTypes.array,
-  setData: PropTypes.func
-}
+  setData: PropTypes.func,
+};
 
 export default Charts;
