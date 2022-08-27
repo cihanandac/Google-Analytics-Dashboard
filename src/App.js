@@ -3,8 +3,6 @@ import "./App.css";
 import { renderButton, checkSignedIn } from "./components/utils";
 import Report from "./components/report";
 import Charts from "./components/Charts";
-import ReactECharts from "echarts-for-react";
-import { dataTool } from "echarts";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
