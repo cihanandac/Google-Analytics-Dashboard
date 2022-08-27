@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { renderButton, checkSignedIn } from "./components/utils";
+import { renderButton, checkSignedIn } from "./lib/utils";
 import Report from "./components/report";
 import Charts from "./components/Charts";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [data, setData] = useState([]);
 
   const updateSignin = (signedIn) => {
     //(3)
@@ -36,8 +37,10 @@ function App() {
         <div id="signin-button"></div>
       ) : (
         <div>
-          <Report />
-          <Charts />
+          <Charts 
+            data={data}
+            setData={setData}
+          />
         </div>
       )}
     </div>

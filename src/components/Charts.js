@@ -2,8 +2,12 @@ import React from "react";
 import ReactECharts from "echarts-for-react";
 import Report from "./report";
 
-const Charts = () => {
+
+
+const Charts = (data, setData) => {
+
   const options = {
+
     grid: { top: 8, right: 8, bottom: 24, left: 36 },
     xAxis: {
       type: "category",
@@ -26,8 +30,11 @@ const Charts = () => {
 
   return (
     <div>
-      <Report />
-      <ReactECharts option={options} />
+      <Report 
+        data={data}
+        setData={setData}
+      />
+      {/* <ReactECharts option={options} /> */}
     </div>
   );
 };

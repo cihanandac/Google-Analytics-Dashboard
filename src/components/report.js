@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ReactDOM } from "react";
 
-const Report = () => {
-  const [data, setData] = useState([]);
-
+const Report = (data, setData) => {
   useEffect(() => {
     const queryReport = () => {
       //(1)
@@ -55,11 +53,11 @@ const Report = () => {
     };
 
     queryReport();
-  }, []);
+  }, [setData]);
 
   return data.map((row) => (
-    <div>
-      <div key={row.date}>{`${row.date}: ${row.visits} visits`}</div>
+    <div key={row.date}>
+      <div >{`${row.date}: ${row.visits} visits`}</div>
     </div>
   ));
 };
