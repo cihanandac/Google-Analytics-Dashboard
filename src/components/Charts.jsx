@@ -1,8 +1,10 @@
-import React from "react";
-
+import React, { useRef } from "react";
 import { useEffect } from "react";
+import * as echarts from "echarts";
 
 const Charts = (data, setData) => {
+  const chartRef = useRef(null);
+
   useEffect(() => {
     const queryReport = () => {
       //(1)
@@ -35,10 +37,10 @@ const Charts = (data, setData) => {
             ],
           },
         })
-        .then(displayResults, console.error.bind(console));
+        .then(setResults, console.error.bind(console));
     };
 
-    const displayResults = (response) => {
+    const setResults = (response) => {
       //(2)
       const queryResult = response.result.reports[0].data.rows;
       const result = queryResult.map((row) => {
@@ -54,38 +56,169 @@ const Charts = (data, setData) => {
     };
 
     queryReport();
+
+    const myChart = echarts.init(chartRef.current, null, {
+      width: 1000,
+      height: 600,
+    });
+
+    const posList = [
+      "left",
+      "right",
+      "top",
+      "bottom",
+      "inside",
+      "insideTop",
+      "insideLeft",
+      "insideRight",
+      "insideBottom",
+      "insideTopLeft",
+      "insideTopRight",
+      "insideBottomLeft",
+      "insideBottomRight",
+    ];
+    
+    myChart.configParameters = {
+      rotate: {
+        min: -90,
+        max: 90,
+      },
+      align: {
+        options: {
+          left: "left",
+          center: "center",
+          right: "right",
+        },
+      },
+      verticalAlign: {
+        options: {
+          top: "top",
+          middle: "middle",
+          bottom: "bottom",
+        },
+      },
+      position: {
+        options: posList.reduce(function (map, pos) {
+          map[pos] = pos;
+          return map;
+        }, {}),
+      },
+      distance: {
+        min: 0,
+        max: 100,
+      },
+    };
+
+    myChart.config = {
+      rotate: 90,
+      align: "left",
+      verticalAlign: "middle",
+      position: "insideBottom",
+      distance: 15,
+      onChange: function () {
+        const labelOption = {
+          rotate: myChart.config.rotate,
+          align: myChart.config.align,
+          verticalAlign: myChart.config.verticalAlign,
+          position: myChart.config.position,
+          distance: myChart.config.distance,
+        };
+        myChart.setOption({
+          series: [
+            {
+              label: labelOption,
+            },
+            {
+              label: labelOption,
+            },
+            {
+              label: labelOption,
+            },
+            {
+              label: labelOption,
+            },
+          ],
+        });
+      },
+    };
+    const labelOption = {
+      show: true,
+      position: myChart.config.position,
+      distance: myChart.config.distance,
+      align: myChart.config.align,
+      verticalAlign: myChart.config.verticalAlign,
+      rotate: myChart.config.rotate,
+      formatter: "{c}  {name|{a}}",
+      fontSize: 16,
+      rich: {
+        name: {},
+      },
+    };
+    // Draw the chart
+    myChart.setOption({
+      title: {
+        text: "ECharts Getting Started Example",
+      },
+      legend: {
+        data: ["2021", "2022"],
+      },
+      tooltip: {
+        trigger: "axis",
+        axisPointer: {
+          type: "shadow",
+        },
+      },
+      toolbox: {
+        show: true,
+        orient: "vertical",
+        left: "right",
+        top: "center",
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ["line", "bar", "stack"] },
+          restore: { show: true },
+          saveAsImage: { show: true },
+        },
+      },
+      xAxis: {
+        type: "category",
+        axisTick: { show: false },
+        data: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "September",
+          "October",
+          "November",
+          "December",
+        ],
+      },
+      yAxis: {},
+      series: [
+        {
+          name: "2021",
+          type: "bar",
+          data: [5, 20, 36, 10, 10, 20, 5, 20, 36, 10, 10, 20],
+          barGap: 0,
+          label: labelOption,
+        },
+        {
+          name: "2022",
+          type: "bar",
+          data: [5, 20, 36, 10, 10, 20, 5, 20, 36, 10, 10, 20],
+          barGap: 0,
+          label: labelOption,
+        },
+      ],
+    });
   }, [setData]);
 
-  const options = {
-    grid: { top: 8, right: 8, bottom: 24, left: 36 },
-    xAxis: {
-      type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    },
-    yAxis: {
-      type: "value",
-    },
-    series: [
-      {
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: "line",
-        smooth: true,
-      },
-    ],
-    tooltip: {
-      trigger: "axis",
-    },
-  };
-
-  return (
-    <div>
-      {/* {data.map((row) => (
-        <div key={row.date}>
-          <div>{`${row.date}: ${row.visits} visits`}</div>
-        </div>
-      ))} */}
-    </div>
-  );
+  return <div ref={chartRef} />;
 };
 
 export default Charts;
