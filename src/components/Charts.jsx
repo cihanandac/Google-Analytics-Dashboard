@@ -1,6 +1,6 @@
 import React from "react";
 // import ReactECharts from "echarts-for-react";
-import Report from "./report";
+
 import { useEffect } from "react";
 
 const Charts = (data, setData) => {
@@ -80,7 +80,11 @@ const Charts = (data, setData) => {
 
   return (
     <div>
-      <Report data={data} setData={setData} />
+      {data.map((row) => (
+        <div key={row.date}>
+          <div>{`${row.date}: ${row.visits} visits`}</div>
+        </div>
+      ))}
       {/* <ReactECharts option={options} /> */}
     </div>
   );
