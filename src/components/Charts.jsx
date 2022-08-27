@@ -6,6 +6,8 @@ const Charts = (data, setData) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
+
+    //Query Report for Google Api
     const queryReport = () => {
       //(1)
       window.gapi.client
@@ -40,6 +42,7 @@ const Charts = (data, setData) => {
         .then(setResults, console.error.bind(console));
     };
 
+    //Taking response from Google Api
     const setResults = (response) => {
       //(2)
       const queryResult = response.result.reports[0].data.rows;
@@ -57,11 +60,13 @@ const Charts = (data, setData) => {
 
     queryReport();
 
+    //Echart construction
     const myChart = echarts.init(chartRef.current, null, {
       width: 1000,
       height: 600,
     });
 
+    // Echart settings
     const posList = [
       "left",
       "right",
@@ -157,7 +162,7 @@ const Charts = (data, setData) => {
     // Draw the chart
     myChart.setOption({
       title: {
-        text: "ECharts Getting Started Example",
+        text: "Comparison Between Visitors of 2021 and 2022",
       },
       legend: {
         data: ["2021", "2022"],
@@ -203,7 +208,7 @@ const Charts = (data, setData) => {
         {
           name: "2021",
           type: "bar",
-          data: [5, 20, 36, 10, 10, 20, 5, 20, 36, 10, 10, 20],
+          data: [5, 20, 6, 10, 10, 20, 5, 20, 36, 10, 10, 20],
           barGap: 0,
           label: labelOption,
         },
@@ -218,9 +223,10 @@ const Charts = (data, setData) => {
     });
   }, [setData]);
 
-  return (
-      <div ref={chartRef}></div>
-  );
+  //Echart settings end
+
+  //Print Echart
+  return <div ref={chartRef}></div>;
 };
 
 export default Charts;
