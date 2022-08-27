@@ -1,5 +1,4 @@
 import React from "react";
-// import ReactECharts from "echarts-for-react";
 
 import { useEffect } from "react";
 
@@ -18,13 +17,13 @@ const Charts = (data, setData) => {
                 viewId: process.env.REACT_APP_VIEW_ID, //enter your view ID here
                 dateRanges: [
                   {
-                    startDate: "10daysAgo",
-                    endDate: "today",
+                    startDate: "2021-01-01",
+                    endDate: "2022-09-10",
                   },
                 ],
                 metrics: [
                   {
-                    expression: "ga:users",
+                    expression: "ga:30dayUsers",
                   },
                 ],
                 dimensions: [
@@ -80,12 +79,11 @@ const Charts = (data, setData) => {
 
   return (
     <div>
-      {data.map((row) => (
+      {/* {data.map((row) => (
         <div key={row.date}>
           <div>{`${row.date}: ${row.visits} visits`}</div>
         </div>
-      ))}
-      {/* <ReactECharts option={options} /> */}
+      ))} */}
     </div>
   );
 };
