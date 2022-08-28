@@ -135,7 +135,7 @@ const Charts = (props) => {
               data: [{ xAxis: 1 }, { xAxis: 3 }, { xAxis: 5 }, { xAxis: 7 }],
             },
             areaStyle: {},
-            data: props.data.slice(0,365),
+            data: props.data.slice(0, 365),
           },
           {
             type: "line",
