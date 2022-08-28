@@ -199,7 +199,7 @@ const Charts = (props) => {
     queryReport();
   }, [props.setData]);
 
-  return <div ref={chartRef}></div>;
+  return <div className="ChartsMonthly" ref={chartRef}></div>;
 };
 
 Charts.propTypes = {
