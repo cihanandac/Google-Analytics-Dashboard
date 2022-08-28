@@ -54,7 +54,7 @@ a {
 
 .ChartsMonthly,
 .ChartsDaily {
-  padding-top: 5%;
+  padding-top: 10%;
   display: grid;
   place-items: center;
   height: 450px;
