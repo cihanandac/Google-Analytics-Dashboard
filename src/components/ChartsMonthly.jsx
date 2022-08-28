@@ -11,10 +11,7 @@ const Charts = (props) => {
     let myChart;
 
     if (chartRef.current !== null) {
-      myChart = echarts.init(chartRef.current, null, {
-        width: 1000,
-        height: 600,
-      });
+      myChart = echarts.init(chartRef.current, null, {});
     }
 
     function resizeChart() {
@@ -40,15 +37,6 @@ const Charts = (props) => {
         };
         myChart.setOption({
           series: [
-            {
-              label: labelOption,
-            },
-            {
-              label: labelOption,
-            },
-            {
-              label: labelOption,
-            },
             {
               label: labelOption,
             },

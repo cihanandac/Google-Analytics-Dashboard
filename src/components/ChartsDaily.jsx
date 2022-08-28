@@ -11,10 +11,7 @@ const Charts = (props) => {
     let myChart;
 
     if (chartRef.current !== null) {
-      myChart = echarts.init(chartRef.current, null, {
-        width: 1200,
-        height: 700,
-      });
+      myChart = echarts.init(chartRef.current, null, {});
     }
 
     function resizeChart() {
