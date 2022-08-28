@@ -87,7 +87,7 @@ const Charts = (props) => {
       myChart.hideLoading();
       myChart.setOption({
         title: {
-          text: "Comparison Between Visitors of 2021 and 2022",
+          text: "Daily Visitors of 2021 and 2022",
         },
         legend: {
           data: ["2021", "2022"],
@@ -113,37 +113,46 @@ const Charts = (props) => {
         },
         xAxis: {
           type: "category",
-          axisTick: { show: false },
-          data: [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-          ],
+          boundaryGap: false,
         },
-        yAxis: {},
+        yAxis: {
+          type: "value",
+          boundaryGap: [0, "30%"],
+        },
         series: [
           {
-            name: "2021",
-            type: "bar",
-            data: props.data.slice(0, 12),
-            barGap: 0,
+            type: "line",
             label: labelOption,
+            smooth: 0.6,
+            symbol: "none",
+            lineStyle: {
+              color: "#5470C6",
+              width: 5,
+            },
+            markLine: {
+              symbol: ["none", "none"],
+              label: { show: false },
+              data: [{ xAxis: 1 }, { xAxis: 3 }, { xAxis: 5 }, { xAxis: 7 }],
+            },
+            areaStyle: {},
+            data: props.data.slice(0,365),
           },
           {
-            name: "2022",
-            type: "bar",
-            data: props.data.slice(12),
-            barGap: 0,
+            type: "line",
             label: labelOption,
+            smooth: 0.6,
+            symbol: "none",
+            lineStyle: {
+              color: "#5470C6",
+              width: 5,
+            },
+            markLine: {
+              symbol: ["none", "none"],
+              label: { show: false },
+              data: [{ xAxis: 1 }, { xAxis: 3 }, { xAxis: 5 }, { xAxis: 7 }],
+            },
+            areaStyle: {},
+            data: props.data.slice(365),
           },
         ],
       });
@@ -173,12 +182,12 @@ const Charts = (props) => {
                 ],
                 metrics: [
                   {
-                    expression: "ga:30dayUsers",
+                    expression: "ga:1dayUsers",
                   },
                 ],
                 dimensions: [
                   {
-                    name: "ga:yearMonth",
+                    name: "ga:date",
                   },
                 ],
               },
