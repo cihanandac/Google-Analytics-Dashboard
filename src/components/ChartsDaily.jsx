@@ -12,8 +12,8 @@ const Charts = (props) => {
 
     if (chartRef.current !== null) {
       myChart = echarts.init(chartRef.current, null, {
-        width: 1000,
-        height: 600,
+        width: 1200,
+        height: 700,
       });
     }
 
@@ -40,15 +40,6 @@ const Charts = (props) => {
         };
         myChart.setOption({
           series: [
-            {
-              label: labelOption,
-            },
-            {
-              label: labelOption,
-            },
-            {
-              label: labelOption,
-            },
             {
               label: labelOption,
             },
@@ -117,7 +108,7 @@ const Charts = (props) => {
         },
         yAxis: {
           type: "value",
-          boundaryGap: [0, "30%"],
+          boundaryGap: [0, "5%"],
         },
         series: [
           {
@@ -126,8 +117,8 @@ const Charts = (props) => {
             smooth: 0.6,
             symbol: "none",
             lineStyle: {
-              color: "#5470C6",
-              width: 5,
+              color: "#93329E",
+              width: 1,
             },
             markLine: {
               symbol: ["none", "none"],
@@ -143,8 +134,8 @@ const Charts = (props) => {
             smooth: 0.6,
             symbol: "none",
             lineStyle: {
-              color: "#5470C6",
-              width: 5,
+              color: "#132C33",
+              width: 1,
             },
             markLine: {
               symbol: ["none", "none"],
