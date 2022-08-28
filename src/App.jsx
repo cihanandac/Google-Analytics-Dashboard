@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { renderButton, checkSignedIn } from "./lib/out";
-import Charts from "./components/Charts";
+import ChartsMonthly from "./components/ChartsMonthly";
+import ChartsDaily from "./components/ChartsDaily";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar, { PreHeader } from "./Navbar";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -31,18 +34,32 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {!isSignedIn ? (
-        <div id="signin-button"></div>
-      ) : (
-        <div>
-          <Charts 
-            data={data}
-            setData={setData}
-          />
-        </div>
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        {!isSignedIn ? (
+          <div>
+            <PreHeader />
+            <div id="signin-button"></div>
+          </div>
+        ) : (
+          <div className="content">
+            <Navbar />
+            <Routes>
+              <Route
+                exact
+                path="/ChartsMonthly"
+                element={<ChartsMonthly data={data} setData={setData} />}
+              />
+              <Route
+                exact
+                path="/ChartsDaily"
+                element={<ChartsDaily data={data} setData={setData} />}
+              />
+            </Routes>
+          </div>
+        )}
+      </div>
+    </Router>
   );
 }
 
