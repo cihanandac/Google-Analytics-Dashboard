@@ -7,21 +7,21 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useHistory,
+  useNavigate,
 } from "react-router-dom";
 import Navbar, { PreHeader } from "./Navbar";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [data, setData] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const updateSignin = (signedIn) => {
     //(3)
     setIsSignedIn(signedIn);
     if (!signedIn) {
       renderButton();
-      history.go(0);
+      navigate("/home");
     }
   };
 
