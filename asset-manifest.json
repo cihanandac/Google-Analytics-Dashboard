@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Google-Analytics-Dashboard/static/css/main.c7630dd5.css",
+    "main.js": "/Google-Analytics-Dashboard/static/js/main.a7d03975.js",
+    "static/js/787.7dfd55bb.chunk.js": "/Google-Analytics-Dashboard/static/js/787.7dfd55bb.chunk.js",
+    "index.html": "/Google-Analytics-Dashboard/index.html",
+    "main.c7630dd5.css.map": "/Google-Analytics-Dashboard/static/css/main.c7630dd5.css.map",
+    "main.a7d03975.js.map": "/Google-Analytics-Dashboard/static/js/main.a7d03975.js.map",
+    "787.7dfd55bb.chunk.js.map": "/Google-Analytics-Dashboard/static/js/787.7dfd55bb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c7630dd5.css",
+    "static/js/main.a7d03975.js"
+  ]
+}
