@@ -7,23 +7,20 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
+  // useNavigate,
 } from "react-router-dom";
 import Navbar, { PreHeader } from "./Navbar";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [data, setData] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const updateSignin = (signedIn) => {
     //(3)
     setIsSignedIn(signedIn);
     if (!signedIn) {
       renderButton();
-
-      //refresh page after signin
-      navigate("/home");
     }
   };
 

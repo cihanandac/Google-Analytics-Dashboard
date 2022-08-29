@@ -8,12 +8,12 @@ export default function Header() {
         <h1>Google Analytics Dashboard</h1>
         <ul className="nav-items">
           <li>
-            <a href="/Google-Analytics-Dashboard/ChartsDaily">
+            <a href="/ChartsDaily">
               <h2>Daily Chart</h2>
             </a>
           </li>
           <li>
-            <a href="/Google-Analytics-Dashboard/ChartsMonthly">
+            <a href="/ChartsMonthly">
               <h2>Monthly Chart</h2>
             </a>
           </li>
