@@ -156,7 +156,7 @@ const Charts = (props) => {
                 dateRanges: [
                   {
                     startDate: "2021-01-30",
-                    endDate: "2022-08-20",
+                    endDate: "2022-08-23",
                   },
                 ],
                 metrics: [
