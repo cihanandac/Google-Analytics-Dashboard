@@ -23,6 +23,9 @@ function App() {
     checkSignedIn()
       .then((signedIn) => {
         updateSignin(signedIn);
+        {
+          window.location.reload(false);
+        }
       })
       .catch((error) => {
         console.error(error);
