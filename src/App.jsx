@@ -7,18 +7,19 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  // useNavigate,
+  useNavigate,
 } from "react-router-dom";
-import Navbar, { PreHeader } from "./Navbar";
+import Navbar from "./Navbar";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [data, setData] = useState([]);
-  // const navigate = useNavigate();
 
   const updateSignin = (signedIn) => {
     //(3)
     setIsSignedIn(signedIn);
+    let navigate = useNavigate();
+    navigate(0);
     if (!signedIn) {
       renderButton();
     }
@@ -42,14 +43,11 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Navbar isSignedIn={isSignedIn} />
         {!isSignedIn ? (
-          <div>
-            <PreHeader />
-            <div id="signin-button"></div>
-          </div>
+          <div id="signin-button"></div>
         ) : (
           <div className="content">
-            <Navbar />
             <Routes>
               <Route
                 exact
