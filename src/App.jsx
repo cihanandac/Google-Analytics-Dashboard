@@ -42,7 +42,9 @@ function App() {
       <div className="App">
         <Navbar isSignedIn={isSignedIn} />
         {!isSignedIn ? (
-          <div id="signin-button"></div>
+          <div>
+            <div id="signin-button"></div>
+          </div>
         ) : (
           <div className="content">
             <Routes>
