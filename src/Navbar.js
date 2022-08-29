@@ -4,7 +4,11 @@ export default function Header() {
   return (
     <header>
       <nav className="nav">
-        <img className="nav-logo" src="./logo.png" alt="logo" />
+        <img
+          className="nav-logo"
+          src="./Google-Analytics-Dashboard/logo.png"
+          alt="logo"
+        />
         <h1>Google Analytics Dashboard</h1>
         <ul className="nav-items">
           <li>
