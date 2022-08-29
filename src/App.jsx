@@ -21,6 +21,8 @@ function App() {
     setIsSignedIn(signedIn);
     if (!signedIn) {
       renderButton();
+
+      //refresh page after signin
       navigate("/home");
     }
   };
