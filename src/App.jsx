@@ -34,8 +34,7 @@ function App() {
   }, []);
 
   return (
-    // eslint-disable-next-line no-undef
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <div className="App">
         {!isSignedIn ? (
           <div>
