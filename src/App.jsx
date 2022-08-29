@@ -3,7 +3,7 @@ import "./App.css";
 import { renderButton, checkSignedIn } from "./lib/out";
 import ChartsMonthly from "./components/ChartsMonthly";
 import ChartsDaily from "./components/ChartsDaily";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useHistory } from "react-router-dom";
 import Navbar, { PreHeader } from "./Navbar";
 
 function App() {
@@ -23,9 +23,8 @@ function App() {
     checkSignedIn()
       .then((signedIn) => {
         updateSignin(signedIn);
-        {
-          window.location.reload(false);
-        }
+        const history = useHistory();
+        history.go(0);
       })
       .catch((error) => {
         console.error(error);
