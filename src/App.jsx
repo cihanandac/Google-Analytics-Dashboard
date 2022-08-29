@@ -6,8 +6,7 @@ import ChartsDaily from "./components/ChartsDaily";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  useNavigate,
+  Route
 } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -18,8 +17,6 @@ function App() {
   const updateSignin = (signedIn) => {
     //(3)
     setIsSignedIn(signedIn);
-    let navigate = useNavigate();
-    navigate(0);
     if (!signedIn) {
       renderButton();
     }
