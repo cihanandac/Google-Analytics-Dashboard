@@ -14,13 +14,13 @@ import Navbar, { PreHeader } from "./Navbar";
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [data, setData] = useState([]);
+  const history = useHistory();
 
   const updateSignin = (signedIn) => {
     //(3)
     setIsSignedIn(signedIn);
     if (!signedIn) {
       renderButton();
-      const history = useHistory();
       history.go(0);
     }
   };
