@@ -48,12 +48,12 @@ function App() {
             <Routes>
               <Route
                 exact
-                path="/Google-Analytics-Dashboard/ChartsMonthly"
+                path="/ChartsMonthly"
                 element={<ChartsMonthly data={data} setData={setData} />}
               />
               <Route
                 exact
-                path="/Google-Analytics-Dashboard/ChartsDaily"
+                path="/ChartsDaily"
                 element={<ChartsDaily data={data} setData={setData} />}
               />
             </Routes>
